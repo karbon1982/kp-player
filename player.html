@@ -38,20 +38,24 @@ const params = new URLSearchParams(location.search);
 const kpId = params.get("id");
 
 if (!kpId) {
+
     document.body.innerHTML =
       "<h1 style='color:white'>Нет ID фильма</h1>";
+
+    throw new Error("No KP ID");
 }
 
-// ==================================================
-// ВАЖНО
-// Здесь вставишь свой источник плеера
-// ==================================================
+// =====================================
+// Tape Operator player
+// =====================================
 
+const PLAYER_URL = 'https://tapeop.dev/';
+
+// Формируем URL
 const playerUrl =
-  `https://YOUR-PLAYER/embed/kp/${kpId}`;
+ `${PLAYER_URL}?kp=${kpId}`;
 
-// ==================================================
-
+// Загружаем iframe
 document
   .getElementById("player")
   .src = playerUrl;
