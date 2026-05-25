@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
 <meta charset="UTF-8">
 <title>KP Player</title>
@@ -8,17 +7,17 @@
 <style>
 html, body {
     margin: 0;
-    width: 100%;
     height: 100%;
     background: black;
 }
+
 #dplayer {
     width: 100%;
     height: 100%;
 }
 </style>
 
-<!-- DPlayer -->
+<!-- DPlayer CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css">
 </head>
 
@@ -26,32 +25,39 @@ html, body {
 
 <div id="dplayer"></div>
 
+<!-- HLS support -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<!-- DPlayer -->
 <script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
 
 <script>
-// =========================
-// 1. получаем KP ID
-// =========================
+// =======================
+// 1. читаем ID из URL
+// =======================
 const params = new URLSearchParams(location.search);
 const kpId = params.get("id");
 
+// защита
 if (!kpId) {
-    document.body.innerHTML = "<h1 style='color:white'>Нет ID фильма</h1>";
+    document.body.innerHTML =
+        "<h1 style='color:white;font-family:sans-serif'>Нет ID фильма</h1>";
     throw new Error("No KP ID");
 }
 
-// =========================
-// 2. ВРЕМЕННЫЙ СТРИМ (пример)
-// =========================
-// сюда потом подключишь свой источник / API
+// =======================
+// 2. ВРЕМЕННЫЙ ВИДЕО ИСТОЧНИК
+// =======================
+// Это тестовый HLS поток (проверка что плеер работает)
 const videoUrl = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
 
-// =========================
-// 3. создаём плеер
-// =========================
+// =======================
+// 3. ИНИЦИАЛИЗАЦИЯ ПЛЕЕРА
+// =======================
 const dp = new DPlayer({
     container: document.getElementById('dplayer'),
+    autoplay: false,
+    theme: '#ff5500',
     video: {
         url: videoUrl,
         type: 'hls'
