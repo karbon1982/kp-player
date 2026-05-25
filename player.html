@@ -5,14 +5,15 @@
 <title>KP Player</title>
 
 <style>
-html,body{
-  margin:0;
-  height:100%;
-  background:black;
+html, body {
+  margin: 0;
+  height: 100%;
+  background: black;
 }
-#player{
-  width:100%;
-  height:100%;
+
+#player {
+  width: 100%;
+  height: 100%;
 }
 </style>
 
@@ -27,20 +28,21 @@ html,body{
 <script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
 
 <script>
-// 1. получаем ID фильма
+// 1. получаем KP ID
 const kpId = new URLSearchParams(location.search).get("id");
 
-if(!kpId){
+if (!kpId) {
   document.body.innerHTML = "<h1 style='color:white'>No ID</h1>";
   throw new Error("No KP ID");
 }
 
-// 2. временный тестовый поток (проверка плеера)
+// 2. временный тестовый HLS поток (проверка системы)
 const videoUrl = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
 
 // 3. создаём плеер
 new DPlayer({
   container: document.getElementById("player"),
+  autoplay: false,
   video: {
     url: videoUrl,
     type: "hls"
